@@ -1,0 +1,81 @@
+﻿@model InventarioHTML.Models.Tienda
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary-d3" id="exampleModalLabel">
+                Gestión Tienda
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form method="post" action="/Tienda/SaveTienda">
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id_tienda)
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Nombre Tienda:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Ubicacion:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ubicacion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Telefono:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Correo:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Encargado:</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("id_encargado", null, "Seleccione Encargado", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="btnGuardar">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    $('#btnGuardar').click(function (e) {
+        let error = '';
+        if ($('#nombre').val().trim() == '')
+            error = 'Debe ingresar nombre de la tienda \n';
+        if ($('#ubicacion').val().trim() == '')
+            error += 'Debe ingresar ubicacion \n';
+        if ($('#telefono').val().trim() == '')
+            error += 'Debe ingresar n° telefonico \n';
+        if ($('#correo').val().trim() == '')
+            error += 'Debe ingresar un correo electronico \n';
+        if ($('#id_encargado').val() == '')
+            error += 'Debe seleccionar un encargado \n';
+        if (error != '') {
+            swal('Error de validación', error, 'error');
+
+            e.preventDefault();
+        }
+
+    });
+</script>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2847c2647b414443854626807034fcc6" Name="Diagram1">
+        <EntityTypeShape EntityType="Registro_TiendasModel.Categorias" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Registro_TiendasModel.Encargado" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Registro_TiendasModel.Marca" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Registro_TiendasModel.Producto" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Registro_TiendasModel.Rol" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Registro_TiendasModel.Tienda" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="Registro_TiendasModel.FK_Producto_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="Registro_TiendasModel.FK_Encargado_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="Registro_TiendasModel.FK_Tienda_Encargado" ManuallyRouted="false" />
+        <AssociationConnector Association="Registro_TiendasModel.FK_Producto_Marca" ManuallyRouted="false" />
+        <AssociationConnector Association="Registro_TiendasModel.FK_Producto_Tienda1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<InventarioHTML.Models.Categorias>
+
+@{
+    ViewBag.Title = "Categorias";
+}
+
+<div class="page-content container container-plus">
+    <div class="card acard mt-2 mt-lg-3">
+        <div class="card-header">
+            <h3 class="card-title text-125 text-primary-d2">
+                <i class="far fa-edit text-dark-l3 mr-1"></i>
+                Gestión de Categorias
+            </h3>
+        </div>
+        <br />
+        <div class="">
+            <div>
+                <button class="btn btn-outline-success" id="openModal"><i class="fa fa-plus"> </i> Crear Categoria</button>
+            </div>
+        </div>
+        <hr />
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Categoria
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        <button class="btn btn-warning editar" data-id="@item.id_categoria">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger eliminar" data-id="@item.id_categoria" data-toggle="modal" data-target="#dangerModal">
+                            <i class="fa fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true"></div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="dangerModalLabel" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content bgc-transparent brc-danger-m2 shadow">
+            <div class="modal-header py-2 bgc-danger-tp1 border-0  radius-t-1">
+                <h5 class="modal-title text-white-tp1 text-110 pl-2 font-bolder" id="dangerModalLabel">
+                    Eliminar Registro
+                </h5>
+
+                <button type="button" class="position-tr btn btn-xs btn-outline-white btn-h-yellow btn-a-yellow mt-1px mr-1px btn-brc-tp" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-150">×</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body bgc-white-tp2 p-md-4 pl-md-5">
+                <div class="d-flex align-items-top mr-2 mr-md-5">
+                    <i class="fas fa-exclamation-triangle fa-2x text-orange-d2 float-rigt mr-4 mt-1"></i>
+                    <div class="text-secondary-d2 text-105">
+                        ¿Está seguro de eliminar el registro seleccionado?
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer bgc-white-tp2 border-0">
+                <button type="button" class="btn px-4 btn-light-grey" data-dismiss="modal">
+                    No
+                </button>
+
+                <button type="button" class="btn px-4 btn-danger" id="btnEliminar" data-dismiss="modal">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    let idEliminar = 0;
+    $('#openModal').click(function () {
+
+        $.get('/Categorias/ModalCategoria', function (resultado) {
+            $('#modalCategoria').html(resultado)
+            $('#modalCategoria').modal('show')
+        })
+    })
+
+    $('.editar').click(function () {
+        let id = $(this).data('id')
+        $.get('/Categorias/Edit/' + id, function (result) {
+            console.log(result)
+            $('#modalCategoria').html(result)
+            $('#modalCategoria').modal('show')
+        })
+    })
+    $('.eliminar').click(function () {
+        idEliminar = $(this).data('id');
+        let nombre = $(this).data('nombre');
+        $('#modalDelete').modal('show');
+        $('#nombreCategoria').text(nombre);
+    });
+
+    $('#btnEliminar').click(function () {
+        $.post('/Categorias/Delete', { id: idEliminar }, function (result) {
+            swal('Eliminado', 'Eliminado con éxito', 'success').then((value) => {
+                location.reload();
+            });
+        });
+    });
+</script>
+

@@ -1,0 +1,112 @@
+﻿@model InventarioHTML.Models.Producto
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary-d3" id="exampleModalLabel">
+                Gestión Encargado
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form method="post" action="/Productos/SaveProducto">
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.id_producto)
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Nombre:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.nombre_producto, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Codigo:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.codigo_producto, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Precio Venta:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.precio_venta, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Precio Compra:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.precio_compra, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Descripcion:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.descripcion_producto, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Marca:</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("id_marca", null, "Seleccione Marca", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Categoria:</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("id_categoria", null, "Seleccione Categoria", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Tienda:</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("id_tienda", null, "Seleccione Tienda", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="btnGuardar">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    $('#btnGuardar').click(function (e) {
+        let error = '';
+        if ($('#nombre_producto').val().trim() == '')
+            error = 'Debe ingresar nombre del producto \n';
+        if ($('#codigo_producto').val().trim() == '')
+            error += 'Debe ingresar codigo del producto \n';
+        if ($('#precio_venta').val().trim() == '')
+            error += 'Debe ingresar precio de venta \n';
+        if ($('#precio_compra').val().trim() == '')
+            error += 'Debe ingresar precio de compra \n';
+        if ($('#descripcion_producto').val().trim() == '')
+            error += 'Debe ingresar descripcion del producto \n';
+        if ($('#id_marca').val() == '')
+            error += 'Debe seleccionar una marca';
+        if ($('#id_categoria').val() == '')
+            error += 'Debe seleccionar una categoria';
+        if ($('#id_tienda').val() == '')
+            error += 'Debe seleccionar una tienda';
+        if (error != '') {
+            swal('Error de validación', error, 'error');
+
+            e.preventDefault();
+        }
+    });
+    $('#codigo_producto').blur(function () {
+        if ($('#codigo_producto').val().trim() != '') {
+            $.get('/Productos/VerificarCodigo?codigo' + $('#codigo_producto').val().trim(), function (result) {
+                if (result != '')
+                    swal(result, '', 'warning');
+            });
+        }
+    });
+</script>

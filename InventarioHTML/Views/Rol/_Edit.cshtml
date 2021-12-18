@@ -1,0 +1,45 @@
+﻿@model InventarioHTML.Models.Rol
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary-d3" id="exampleModalLabel">
+                Editar Rol
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form method="post" action="/Rol/Edit" onsubmit="return validar()">
+            <div class="modal-body">
+
+                <input type="hidden" name="id_rol" id="id_marca" value="@Model.id_rol" />
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Rol:</label>
+                    <div class="col-md-10">
+                        <input type="text" name="nombre" id="nombre_rol" value="@Model.nombre_rol" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    function validar() {
+    const nombre = document.getElementById('nombre_rol').value
+        if (nombre.trim() === '') {
+            swal('Debe ingresar un rol')
+            return false;
+        }
+    }</script>

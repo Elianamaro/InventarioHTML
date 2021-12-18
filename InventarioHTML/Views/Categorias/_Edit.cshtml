@@ -1,0 +1,45 @@
+﻿@model InventarioHTML.Models.Categorias
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-primary-d3" id="exampleModalLabel">
+                Editar Categoria
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form method="post" action="/Categorias/Edit" onsubmit="return validar()">
+            <div class="modal-body">
+
+                <input type="hidden" name="id_categoria" id="id_categoria" value="@Model.id_categoria" />
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Marca:</label>
+                    <div class="col-md-10">
+                        <input type="text" name="nombre" id="nombre" value="@Model.nombre" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="submit" class="btn btn-primary">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+function validar() {
+        const nombre = document.getElementById('nombre').value
+        if (nombre.trim() === '') {
+            alert('Debe ingresar una categoria')
+            return false;
+        }
+    }
+</script>
