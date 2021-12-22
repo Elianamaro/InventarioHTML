@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title text-primary-d3" id="exampleModalLabel">
-                Gestión Encargado
+                Gestión Productos
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
@@ -28,13 +28,15 @@
                 <div class="form-group row">
                     <label class="control-label col-md-2">Precio Venta:</label>
                     <div class="col-md-10">
+                        <input type="number" pattern=" 0+\.[0-9]*[1-9][0-9]*$" name="itemConsumption" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                         @Html.EditorFor(model => model.precio_venta, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-2">Precio Compra:</label>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.precio_compra, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="number" pattern=" 0+\.[0-9]*[1-9][0-9]*$" name="itemConsumption" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                               @Html.EditorFor(model => model.precio_compra, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="form-group row">
@@ -90,11 +92,11 @@
         if ($('#descripcion_producto').val().trim() == '')
             error += 'Debe ingresar descripcion del producto \n';
         if ($('#id_marca').val() == '')
-            error += 'Debe seleccionar una marca';
+            error += 'Debe seleccionar una marca \n';
         if ($('#id_categoria').val() == '')
-            error += 'Debe seleccionar una categoria';
+            error += 'Debe seleccionar una categoria \n';
         if ($('#id_tienda').val() == '')
-            error += 'Debe seleccionar una tienda';
+            error += 'Debe seleccionar una tienda \n';
         if (error != '') {
             swal('Error de validación', error, 'error');
 
